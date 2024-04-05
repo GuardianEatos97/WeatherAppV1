@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.VisualBasic;
+using Newtonsoft.Json;
 using System.Windows.Input;
 //using ThreadNetwork;
 using WeatherApp.Models;
@@ -7,31 +8,148 @@ namespace WeatherApp
 {
     public partial class MainPage : ContentPage
     {
-        private double _temp;
+        private int _temp;
 
-        public double Temp
+        public int Temp
         {
             get { return _temp; }
-            set { _temp = value; OnPropertyChanged(); }
+            set
+            {
+                _temp = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private double _wind;
+        public double Wind
+        {
+            get { return _wind; }
+            set
+            {
+                _wind = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _humidity;
+        public int Humidity
+        {
+            get { return _humidity; }
+            set
+            {
+                _humidity = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _pressure;
+
+        public int Pressure
+        {
+            get { return _pressure; }
+            set
+            {
+                _pressure = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _country;
+        public string Country
+        {
+            get { return _country; }
+            set
+            {
+                _country = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _clouds;
+        public int Clouds
+        {
+            get { return _clouds; }
+            set
+            {
+                _clouds = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _weatherdescription;
+        public string WeatherDescription
+        {
+            get { return _weatherdescription; }
+            set
+            {
+                _weatherdescription = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _dateAndTime;
+        public int DateAndTime 
+        { get { return _dateAndTime; }
+          set 
+            { 
+                _dateAndTime = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _sunrise;
+
+        public int Sunrise
+        {
+            get { return _sunrise; }
+            set 
+            { 
+                _sunrise = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _sunset;
+
+        public int Sunset
+        {
+            get { return _sunset; }
+            set
+            {
+                _sunset = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private long dateModified;
+        public long DateModified
+        {
+            get => dateModified;
+            set
+            {
+                if (dateModified.Equals(value)) return;
+                dateModified = value;
+                OnPropertyChanged();
+            }
         }
 
 
         private GPSModule _gpsmodule;
-        
-       
+
+
         private string _currentWeather;
 
-       /* public string CurrentWeather
-        {
-            get { return _currentWeather; }
-            set
-            {
-                _currentWeather = value;
-                OnPropertyChanged();
-            }
-        }*/
+        /* public string CurrentWeather
+         {
+             get { return _currentWeather; }
+             set
+             {
+                 _currentWeather = value;
+                 OnPropertyChanged();
+             }
+         }*/
 
-        
+
 
         public MainPage()
         {
@@ -48,12 +166,9 @@ namespace WeatherApp
 
         private HttpClient _client;
 
-        private void OnCounterClicked(object sender, EventArgs e)
-        {
-            
-        }
         public async void GetLatestWeather(object parameters)
         {
+            DateAndTimeClass currenttime = new DateAndTimeClass();
 
             Location location = await _gpsmodule.GetCurrentLocation();
             double lat = location.Latitude;
@@ -64,9 +179,25 @@ namespace WeatherApp
 
             WeatherForecast currentweather = JsonConvert.DeserializeObject<WeatherForecast>(response);
 
+
+
             if (currentweather != null)
             {
-               Temp = currentweather.main.temp;
+                Temp = (int)Math.Round(currentweather.main.temp);
+                Wind = currentweather.wind.speed;
+                Sunrise = currentweather.sys.sunrise;
+                Sunset = currentweather.sys.sunset;
+                DateModified = currentweather.dt;
+                Humidity = currentweather.main.humidity;
+                Pressure = currentweather.main.pressure;
+                Country = currentweather.sys.country;
+                Clouds = currentweather.clouds.all;
+
+                if (currentweather.weather.Count > 0)
+                {
+                    WeatherDescription = currentweather.weather[0].description;
+                }
+
             }
 
         }

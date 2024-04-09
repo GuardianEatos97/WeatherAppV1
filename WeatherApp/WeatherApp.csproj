@@ -57,6 +57,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\cloudcover.png" />
+	  <None Remove="Resources\Images\clouds.png" />
+	  <None Remove="Resources\Images\cloudycover.png" />
+	  <None Remove="Resources\Images\humid.jpg" />
+	  <None Remove="Resources\Images\humidity3.png" />
+	  <None Remove="Resources\Images\lowbg.jpg" />
+	  <None Remove="Resources\Images\overlay.jpg" />
+	  <None Remove="Resources\Images\press.png" />
+	  <None Remove="Resources\Images\pressure.jpg" />
+	  <None Remove="Resources\Images\wind2.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />

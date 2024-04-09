@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualBasic;
 using Newtonsoft.Json;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 //using ThreadNetwork;
 using WeatherApp.Models;
@@ -94,12 +95,13 @@ namespace WeatherApp
             { 
                 _dateAndTime = value;
                 OnPropertyChanged();
+                
             }
         }
 
-        private int _sunrise;
+        private string _sunrise;
 
-        public int Sunrise
+        public string Sunrise
         {
             get { return _sunrise; }
             set 
@@ -109,9 +111,9 @@ namespace WeatherApp
             }
         }
 
-        private int _sunset;
+        private string _sunset;
 
-        public int Sunset
+        public string Sunset
         {
             get { return _sunset; }
             set
@@ -121,17 +123,41 @@ namespace WeatherApp
             }
         }
 
-        private long dateModified;
-        public long DateModified
+        private string dateModified;
+        public string DateModified
         {
             get => dateModified;
             set
             {
-                if (dateModified.Equals(value)) return;
                 dateModified = value;
                 OnPropertyChanged();
             }
         }
+
+        private double _tempmin;
+
+        public double TempMin
+        {
+            get { return _tempmin; }
+            set { _tempmin = value; OnPropertyChanged(); }
+        }
+        private double _tempmax;
+        public double TempMax 
+        {
+            get { return _tempmax; }
+            set { _tempmax = value; OnPropertyChanged(); }
+        }
+
+        private double _feelslike;
+
+        public double FeelsLike
+        {
+            get { return _feelslike; }
+            set { _feelslike = value; OnPropertyChanged(); }
+        }
+
+
+
 
 
         private GPSModule _gpsmodule;
@@ -166,9 +192,14 @@ namespace WeatherApp
 
         private HttpClient _client;
 
+        
+            
+            
+        
+
         public async void GetLatestWeather(object parameters)
         {
-            DateAndTimeClass currenttime = new DateAndTimeClass();
+            await DisplayAlert("Notice", "Weather Is Updating...", "Okay");
 
             Location location = await _gpsmodule.GetCurrentLocation();
             double lat = location.Latitude;
@@ -185,20 +216,33 @@ namespace WeatherApp
             {
                 Temp = (int)Math.Round(currentweather.main.temp);
                 Wind = currentweather.wind.speed;
-                Sunrise = currentweather.sys.sunrise;
-                Sunset = currentweather.sys.sunset;
-                DateModified = currentweather.dt;
+
+                DateTimeOffset dtOffset = DateTimeOffset.FromUnixTimeSeconds(currentweather.sys.sunrise);
+                Sunrise = dtOffset.UtcDateTime.ToString();
+
+                dtOffset = DateTimeOffset.FromUnixTimeSeconds(currentweather.sys.sunset);
+                Sunset = dtOffset.UtcDateTime.ToString();
+
+                dtOffset = DateTimeOffset.FromUnixTimeSeconds(currentweather.dt);
+                DateModified = dtOffset.UtcDateTime.ToString();
+
+                TempMax = Math.Round(currentweather.main.temp_max);
+                TempMin = Math.Round(currentweather.main.temp_min);
+                FeelsLike = Math.Round(currentweather.main.feels_like);
                 Humidity = currentweather.main.humidity;
                 Pressure = currentweather.main.pressure;
                 Country = currentweather.sys.country;
+
                 Clouds = currentweather.clouds.all;
 
                 if (currentweather.weather.Count > 0)
                 {
-                    WeatherDescription = currentweather.weather[0].description;
+                    WeatherDescription = currentweather.weather[0].description.ToUpper();
                 }
 
             }
+
+            
 
         }
 

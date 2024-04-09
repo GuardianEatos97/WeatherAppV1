@@ -2,8 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:WeatherApp"
-             xmlns:super="clr-namespace:WeatherApp.Models"
-             BackgroundColor="{DynamicResource Secondary}"
+             BackgroundColor="SteelBlue"
+             BackgroundImageSource="lowbg.jpg"
              x:Class="WeatherApp.MainPage">
 
     <ContentPage.Resources>
@@ -16,9 +16,6 @@
                 <Setter Property="FontSize" Value="Medium" />
                 <Setter Property="Margin" Value="10,0,0,0" />
             </Style>
-
-            <super:DateTimeConverter x:Key="DatetimeConverter"/>
-
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -35,16 +32,16 @@
         <Image
             Aspect="Fill"
             HeightRequest="300"
-            Source="overlay.png"
+            Source="clouds.png"
             VerticalOptions="StartAndExpand" />
 
         <StackLayout
             Margin="20,50"
-            HorizontalOptions="Start"
-            Orientation="Vertical"
-            Spacing="20"
+            HorizontalOptions="Center"
+            Orientation="Horizontal"
+            Spacing="50"
             VerticalOptions="Start">
-            <StackLayout Orientation="Horizontal">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                 <Label
                     FontSize="16"
                     Text="Cape Town"
@@ -64,11 +61,6 @@
             Orientation="Vertical"
             VerticalOptions="Center">
             <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
-                <Image
-                    HeightRequest="50"
-                    Source="weather.png"
-                    VerticalOptions="Center"
-                    WidthRequest="50" />
                 <Label
                     FontAttributes="Bold"
                     FontSize="70"
@@ -76,10 +68,24 @@
                     TextColor="White"
                     VerticalOptions="Center" />
                 <Label
-                    FontSize="34"
+                    FontSize="60"
                     Text="°C"
                     TextColor="White"
                     VerticalOptions="Center" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Label
+                    FontSize="12"
+                    FontAttributes="Bold"
+                    Text="{Binding TempMax, StringFormat='{0}°C  / '}"
+                    TextColor="White"
+                    VerticalOptions="Center"/>
+                <Label
+                    FontSize="12"
+                    FontAttributes="Bold"
+                    Text="{Binding TempMin, StringFormat=' {0}°C'}"
+                    TextColor="White"
+                    VerticalOptions="Center"/>
             </StackLayout>
             <Label
                 FontSize="16"
@@ -89,7 +95,7 @@
             <Label
                 FontSize="12"
                 HorizontalOptions="Center"
-                Text="{Binding DateModified, Converter={StaticResource DatetimeConverter}}"
+                Text="{Binding DateModified}"
                 TextColor="White" />
         </StackLayout>
 
@@ -99,7 +105,7 @@
             Padding="0"
             CornerRadius="10"
             HasShadow="True"
-            HeightRequest="120"
+            HeightRequest="180"
             VerticalOptions="Start">
 
             <Grid
@@ -117,7 +123,9 @@
                     HorizontalOptions="CenterAndExpand"
                     Orientation="Vertical"
                     Spacing="10">
-                    <Image Source="humidity.png" />
+                    <Image Source="humidity3.jpg"
+                          HeightRequest="80"
+                           WidthRequest="80"/>
                     <StackLayout HorizontalOptions="CenterAndExpand" Spacing="7">
                         <Label
                             FontAttributes="Bold"
@@ -128,7 +136,7 @@
                         <Label
                             FontSize="11"
                             HorizontalOptions="Center"
-                            Text="Humidity"
+                            Text="Humidity Levels"
                             TextColor="#7D7D7D" />
                     </StackLayout>
                 </StackLayout>
@@ -138,18 +146,20 @@
                     HorizontalOptions="CenterAndExpand"
                     Orientation="Vertical"
                     Spacing="10">
-                    <Image Source="wind.png" />
+                    <Image Source="wind2.png"
+                           HeightRequest="80"
+                           WidthRequest="50"/>
                     <StackLayout HorizontalOptions="CenterAndExpand" Spacing="7">
                         <Label
                             FontAttributes="Bold"
                             FontSize="12"
                             HorizontalOptions="Center"
-                            Text="{Binding Wind, StringFormat='{0} km/s'}"
+                            Text="{Binding Wind, StringFormat='{0} km/h'}"
                             TextColor="Black" />
                         <Label
                             FontSize="11"
                             HorizontalOptions="Center"
-                            Text="Wind"
+                            Text="Wind Speed"
                             TextColor="#7D7D7D" />
                     </StackLayout>
                 </StackLayout>
@@ -159,7 +169,9 @@
                     HorizontalOptions="CenterAndExpand"
                     Orientation="Vertical"
                     Spacing="10">
-                    <Image Source="pressure.png" />
+                    <Image Source="press.png"
+                           HeightRequest="80"
+                           WidthRequest="80"/>
                     <StackLayout HorizontalOptions="CenterAndExpand" Spacing="7">
                         <Label
                             FontAttributes="Bold"
@@ -170,7 +182,7 @@
                         <Label
                             FontSize="11"
                             HorizontalOptions="Center"
-                            Text="Pressure"
+                            Text="Atmospheric Pressure"
                             TextColor="#7D7D7D" />
                     </StackLayout>
                 </StackLayout>
@@ -180,7 +192,9 @@
                     HorizontalOptions="CenterAndExpand"
                     Orientation="Vertical"
                     Spacing="10">
-                    <Image Source="cloudiness.png" />
+                    <Image Source="cloudycover.png"
+                           HeightRequest="80"
+                           WidthRequest="80"/>
                     <StackLayout HorizontalOptions="CenterAndExpand" Spacing="7">
                         <Label
                             FontAttributes="Bold"
@@ -209,13 +223,26 @@
                 <Label
                     FontAttributes="Bold"
                     FontSize="Small"
+                    Text="Feels like"
+                    TextColor="White"
+                    VerticalOptions="Center"/>
+                <Label
+                    FontSize="15"
+                    Text="{Binding FeelsLike, StringFormat='{0}°C'}"
+                    TextColor="White"
+                    VerticalOptions="Center"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" Spacing="40">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="Small"
                     Text="Time of Sunrise"
-                    TextColor="Black"
+                    TextColor="White"
                     VerticalOptions="Center" />
                 <Label
                     FontSize="15"
-                    Text="{Binding Sunrise, Converter={StaticResource DatetimeConverter}}"
-                    TextColor="Black"
+                    Text="{Binding Sunrise}"
+                    TextColor="White"
                     VerticalOptions="Center" />
             </StackLayout>
             <StackLayout Orientation="Horizontal" Spacing="40">
@@ -223,12 +250,12 @@
                     FontAttributes="Bold"
                     FontSize="Small"
                     Text="Time of Sunset"
-                    TextColor="Black"
+                    TextColor="White"
                     VerticalOptions="Center" />
                 <Label
                     FontSize="15"
-                    Text="{Binding Sunset, Converter={StaticResource DatetimeConverter}}"
-                    TextColor="Black"
+                    Text="{Binding Sunset}"
+                    TextColor="White"
                     VerticalOptions="Center" />
             </StackLayout>
         </StackLayout>

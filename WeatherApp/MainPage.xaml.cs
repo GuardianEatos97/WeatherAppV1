@@ -88,17 +88,6 @@ namespace WeatherApp
             }
         }
 
-        private int _dateAndTime;
-        public int DateAndTime 
-        { get { return _dateAndTime; }
-          set 
-            { 
-                _dateAndTime = value;
-                OnPropertyChanged();
-                
-            }
-        }
-
         private string _sunrise;
 
         public string Sunrise
@@ -156,26 +145,8 @@ namespace WeatherApp
             set { _feelslike = value; OnPropertyChanged(); }
         }
 
-
-
-
-
         private GPSModule _gpsmodule;
-
-
         private string _currentWeather;
-
-        /* public string CurrentWeather
-         {
-             get { return _currentWeather; }
-             set
-             {
-                 _currentWeather = value;
-                 OnPropertyChanged();
-             }
-         }*/
-
-
 
         public MainPage()
         {
@@ -192,13 +163,12 @@ namespace WeatherApp
 
         private HttpClient _client;
 
-        
-            
-            
-        
-
         public async void GetLatestWeather(object parameters)
         {
+            activityindicator.IsRunning = true;
+            activityindicator.IsVisible = true;
+            activityindicator.HeightRequest = 30;
+            activityindicator.WidthRequest = 30;
             await DisplayAlert("Notice", "Weather Is Updating...", "Okay");
 
             Location location = await _gpsmodule.GetCurrentLocation();
@@ -215,6 +185,7 @@ namespace WeatherApp
             if (currentweather != null)
             {
                 Temp = (int)Math.Round(currentweather.main.temp);
+
                 Wind = currentweather.wind.speed;
 
                 DateTimeOffset dtOffset = DateTimeOffset.FromUnixTimeSeconds(currentweather.sys.sunrise);
@@ -227,10 +198,15 @@ namespace WeatherApp
                 DateModified = dtOffset.UtcDateTime.ToString();
 
                 TempMax = Math.Round(currentweather.main.temp_max);
+
                 TempMin = Math.Round(currentweather.main.temp_min);
+
                 FeelsLike = Math.Round(currentweather.main.feels_like);
+
                 Humidity = currentweather.main.humidity;
+
                 Pressure = currentweather.main.pressure;
+
                 Country = currentweather.sys.country;
 
                 Clouds = currentweather.clouds.all;
@@ -242,10 +218,8 @@ namespace WeatherApp
 
             }
 
-            
-
+            activityindicator.IsRunning = false;
+            activityindicator.IsVisible = false;
         }
-
     }
-
 }

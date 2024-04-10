@@ -36,8 +36,8 @@
         <Image
             Aspect="Fill"
             HeightRequest="300"
-            Source="clouds.png"
-            VerticalOptions="StartAndExpand" />
+            Source="sky2.jpg"
+            VerticalOptions="StartAndExpand"/>
 
         <StackLayout
             Margin="20,25"

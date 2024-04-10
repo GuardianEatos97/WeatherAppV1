@@ -58,7 +58,6 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\cloudcover.png" />
-	  <None Remove="Resources\Images\clouds.png" />
 	  <None Remove="Resources\Images\cloudycover.png" />
 	  <None Remove="Resources\Images\honest.png" />
 	  <None Remove="Resources\Images\humid.jpg" />
@@ -67,6 +66,8 @@
 	  <None Remove="Resources\Images\overlay.jpg" />
 	  <None Remove="Resources\Images\press.png" />
 	  <None Remove="Resources\Images\pressure.jpg" />
+	  <None Remove="Resources\Images\sky.jpg" />
+	  <None Remove="Resources\Images\sky2.jpg" />
 	  <None Remove="Resources\Images\sunrise.png" />
 	  <None Remove="Resources\Images\sunset.png" />
 	  <None Remove="Resources\Images\wind2.png" />

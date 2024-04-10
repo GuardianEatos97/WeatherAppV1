@@ -107,11 +107,7 @@
                 HorizontalOptions="Start"
                 Margin="0,20,580,0"
                 FontAttributes="Bold"
-                TextColor="Black">
-                <Label.Shadow>
-                    <Shadow Brush="Black" Offset="4,-4" Radius="1" Opacity="0"/>
-                </Label.Shadow>
-            </Label>
+                TextColor="Black"/>
 
         </StackLayout>
         

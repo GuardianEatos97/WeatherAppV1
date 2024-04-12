@@ -97,17 +97,18 @@
                 Text="{Binding WeatherDescription}"
                 TextColor="White" />
             <Label
+                Margin="0,0,0,10"
                 FontSize="15"
                 HorizontalOptions="Center"
                 Text="{Binding DateModified}"
                 TextColor="White" />
             <Label
                 FontSize="20"
-                Text="Weather Forecast"
+                Text="Weather Forecast Data"
                 HorizontalOptions="Center"
-                Margin="0,20,0,0"
+                Margin="0,0,0,0"
                 FontAttributes="Bold"
-                TextColor="Black"/>
+                TextColor="White"/>
 
         </StackLayout>
         
@@ -168,7 +169,7 @@
                             FontAttributes="Bold"
                             FontSize="12"
                             HorizontalOptions="Center"
-                            Text="{Binding Wind, StringFormat='{0} km/h'}"
+                            Text="{Binding Wind, StringFormat='{0} m/s'}"
                             TextColor="Black" />
                         <Label
                             FontSize="11"
@@ -196,7 +197,7 @@
                         <Label
                             FontSize="11"
                             HorizontalOptions="Center"
-                            Text="Atmospheric Pressure"
+                            Text="Air Pressure"
                             TextColor="#7D7D7D" />
                     </StackLayout>
                 </StackLayout>
@@ -231,9 +232,10 @@
             Grid.Row="3" 
             Text="Miscellaneous Data" 
             FontSize="20" 
+            TextColor="White"
             HorizontalOptions="Center"
             FontAttributes="Bold" 
-            Margin="0,20,0,0"/>
+            Margin="0,20,0,10"/>
         
         <Frame
             Grid.Row="4"
@@ -331,9 +333,11 @@
             Orientation="Horizontal">
 
            <Button
-              Text="Update Weather"
-              Command="{Binding ShowWeatherCommand}"
-              HorizontalOptions="CenterAndExpand"/>
+               Text="Update Weather"
+               Background="MintCream"
+               TextColor="Black"
+               Command="{Binding ShowWeatherCommand}"
+               HorizontalOptions="CenterAndExpand"/>
         </StackLayout>
         <ActivityIndicator x:Name="activityindicator" IsRunning="False" IsVisible="False" Margin="0,-140,320,0" Color="LightBlue"/>
     </Grid>

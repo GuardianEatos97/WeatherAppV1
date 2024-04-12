@@ -104,8 +104,8 @@
             <Label
                 FontSize="20"
                 Text="Weather Forecast"
-                HorizontalOptions="Start"
-                Margin="0,20,580,0"
+                HorizontalOptions="Center"
+                Margin="0,20,0,0"
                 FontAttributes="Bold"
                 TextColor="Black"/>
 
@@ -231,8 +231,9 @@
             Grid.Row="3" 
             Text="Miscellaneous Data" 
             FontSize="20" 
+            HorizontalOptions="Center"
             FontAttributes="Bold" 
-            Margin="20,20,0,0"/>
+            Margin="0,20,0,0"/>
         
         <Frame
             Grid.Row="4"
